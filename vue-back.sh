@@ -5,7 +5,7 @@ echo '先清除老代码'
 git reset --hard origin/master
 git clean -f
 echo '拉取代码'
-git pull orgin/master
+git pull origin/master
 echo '开始构建'
 docker build -t vue-back:1.0 .
 echo '停止并删除旧容器'
