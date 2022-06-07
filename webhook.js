@@ -1,6 +1,6 @@
 let http = require("http")
-
 let crypto = require('crypto')
+let { spawn } = require('child_process')
 let SECRET = '123456'
 
 function sign(body) {
@@ -19,15 +19,30 @@ let server = http.createServer(function(req, res) {
 
         req.on('end', function(buffer) {
             let body = Buffer.concat(buffers);
-            let event = req.headers['x-gitHub-event'];
+            let event = req.headers['x-gitHub-event']; //event=push
             let signature = req.headers['x-hub-signature'];
             if (signature !== sign(body)) {
                 return res.end("not found")
             }
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ ok: true }))
 
+            if (event == 'push') { //开始部署
+                let payload = JSON.parse(body)
+                let child = spawn('sh', [`./${payload.repository.name}.sh`])
+                let buffers = []
+                child.stdout.on('data', function(buffer) {
+                    buffers.push(buffer)
+                })
+                child.stdout.on('end', function() {
+                    let log = Buffer.concat(buffers)
+                    console.log("日志", log)
+                })
+
+
+            }
         })
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ ok: true }))
+
     } else {
         res.end("not found")
     }
