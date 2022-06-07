@@ -2,10 +2,10 @@
 WORK_PATH='/usr/projects/vue-front'
 cd $WORK_PATH
 echo '先清除老代码'
-git reset --hard origin/master
+git reset --hard origin/main
 git clean -f
 echo '拉取新代码'
-git pull origin/master
+git pull origin/main
 echo '开始编译'
 npm run build
 echo '开始构建'

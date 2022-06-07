@@ -2,10 +2,10 @@
 WORK_PATH='/usr/projects/vue-back'
 cd $WORK_PATH
 echo '先清除老代码'
-git reset --hard origin/master
+git reset --hard origin/main
 git clean -f
 echo '拉取代码'
-git pull origin/master
+git pull origin/main
 echo '开始构建'
 docker build -t vue-back:1.0 .
 echo '停止并删除旧容器'
