@@ -11,12 +11,12 @@ let transporter = nodemailer.createTransport({
 })
 
 
-function sendMail() {
+function sendMail(message) {
     let mailOptions = {
-        from: '来自534893106@qq.com', // 发邮件的账号
+        from: '"534893106@qq.com" <534893106@qq.com>', // 发邮件的账号
         to: '534893106@qq.com', // 收邮件的账号
-        subject: 'hello', // 标题
-        html: '<html><h1>world</h1></html>' // 邮寄的内容
+        subject: '部署通知', // 标题
+        html: message // 邮寄的内容
     }
 
     transporter.sendMail(mailOptions, (err, info) => {
