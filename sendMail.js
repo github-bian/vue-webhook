@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 let transporter = nodemailer.createTransport({
-    service: '534893106@qq.com', // 发给QQ邮箱
+    service: 'qq', // 发给QQ邮箱
     port: 465, // 发邮箱的端口号
     secureConnection: true, // 使用SSL加密传输
     auth: { // 权限认证
